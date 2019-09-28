@@ -269,8 +269,8 @@
 			children = (
 				84EF5F9822ABD179001005AA /* MainNavigationViewController.swift */,
 				84BA892D233F5B1A00BBAE50 /* MainTabBarController.swift */,
-				84BE5858233ED2E1009FEC11 /* MeasureViewController.swift */,
 				84BE582B233E9E34009FEC11 /* LoginViewController.swift */,
+				84BE5858233ED2E1009FEC11 /* MeasureViewController.swift */,
 				84BA893E233F8F0100BBAE50 /* ProfileViewController.swift */,
 			);
 			path = ViewControllers;

@@ -134,7 +134,7 @@ class MeasureViewController: UIViewController {
         self.view.addSubview(self.sendButton)
         self.sendButton.snp.makeConstraints { (make) in
             make.centerX.equalToSuperview()
-            make.bottom.equalToSuperview().offset(-200)
+            make.bottom.equalTo(self.view.safeAreaLayoutGuide.snp.bottom).offset(-60)
         }
         
         self.updateMapView()

@@ -25,52 +25,34 @@ class MainNavigationViewController: UINavigationController {
             viewControllers = [controller]
         }
         self.viewControllers = viewControllers
+        
+        AuthManager.shared.register(observer: self)
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
+    deinit {
+        AuthManager.shared.unregister(observer: self)
+    }
+    
     func actionDidLogin() {
         let mainController = MainTabBarController()
-//        self.setNavigationBarHidden(false, animated: true)
         self.setViewControllers([mainController], animated: true)
     }
     
-    /*
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    func actionDidLogout() {
+        let controller = LoginViewController()
+        controller.completion = { [weak self] vc in
+            self?.actionDidLogin()
+        }
+        self.setViewControllers([controller], animated: true)
+    }
+}
 
-        self.navigationBar.prefersLargeTitles = true
-        
-        if let viewController = self.viewControllers.last {
-            self.navigationBar.setBackgroundImage(viewController.navigationBarBackgroundImage, for: .default)
-            self.navigationBar.largeTitleTextAttributes = viewController.largeTitleAttributes
-            self.navigationBar.barTintColor = viewController.navigationBarTintColor
-        }
+extension MainNavigationViewController: AuthManagerObserverProtocol {
+    func authManagerDidLogout(_ manager: AuthManager) {
+        self.actionDidLogout()
     }
-    
-    override func pushViewController(_ viewController: UIViewController, animated: Bool) {
-        super.pushViewController(viewController, animated: animated)
-        
-        self.navigationBar.setBackgroundImage(viewController.navigationBarBackgroundImage, for: .default)
-        self.navigationBar.largeTitleTextAttributes = viewController.largeTitleAttributes
-        self.navigationBar.barTintColor = viewController.navigationBarTintColor
-    }
-    
-    override func popViewController(animated: Bool) -> UIViewController? {
-        let result = super.popViewController(animated: animated)
-        if let viewController = self.viewControllers.last {
-            self.navigationBar.setBackgroundImage(viewController.navigationBarBackgroundImage, for: .default)
-            self.navigationBar.largeTitleTextAttributes = viewController.largeTitleAttributes
-            self.navigationBar.barTintColor = viewController.navigationBarTintColor
-        }
-        return result
-    }
-    
-    override func popToViewController(_ viewController: UIViewController, animated: Bool) -> [UIViewController]? {
-        let result = super.popToViewController(viewController, animated: animated)
-        return result
-    }
-*/
 }

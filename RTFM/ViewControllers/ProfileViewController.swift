@@ -19,6 +19,12 @@ class ProfileViewController: UIViewController {
 
     init() {
         super.init(nibName: nil, bundle: nil)
+        
+        self.title = "Профиль"
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "logout"),
+                                                                 style: .plain,
+                                                                 target: self,
+                                                                 action: #selector(actionLogout(_:)))
     }
     
     required init?(coder: NSCoder) {
@@ -74,22 +80,22 @@ class ProfileViewController: UIViewController {
             make.centerX.equalToSuperview()
         }
         
+        self.useButton = UIButton.makeSystemButton()
+        self.useButton.setTitle("ИСПОЛЬЗОВАТЬ", for: .normal)
+        self.useButton.addTarget(self, action: #selector(actionUseBonus(_:)), for: .touchUpInside)
+        self.view.addSubview(self.useButton)
+        self.useButton.snp.makeConstraints { (make) in
+            make.centerX.equalToSuperview()
+            make.bottom.equalTo(self.view.safeAreaLayoutGuide.snp.bottom).offset(-60)
+        }
+        
         self.bonusLabel = UILabel()
         self.bonusLabel.font = UIFont.systemFont(ofSize: 30, weight: .medium)
         self.bonusLabel.textColor = rgba(43, 34, 118, 0.9)
         self.bonusLabel.text = "530 Б"
         self.view.addSubview(self.bonusLabel)
         self.bonusLabel.snp.makeConstraints { (make) in
-            make.top.equalTo(self.phoneLabel.snp.bottom).offset(24)
-            make.centerX.equalToSuperview()
-        }
-        
-        self.useButton = UIButton.makeSystemButton()
-        self.useButton.setTitle("ИСПОЛЬЗОВАТЬ", for: .normal)
-        self.useButton.addTarget(self, action: #selector(actionUseBonus(_:)), for: .touchUpInside)
-        self.view.addSubview(self.useButton)
-        self.useButton.snp.makeConstraints { (make) in
-            make.top.equalTo(self.bonusLabel.snp.bottom).offset(20)
+            make.bottom.equalTo(self.useButton.snp.top).offset(-24)
             make.centerX.equalToSuperview()
         }
     }
@@ -97,5 +103,10 @@ class ProfileViewController: UIViewController {
     @objc
     func actionUseBonus(_ sender: Any?) {
         // TODO: Show variants
+    }
+    
+    @objc
+    func actionLogout(_ sender: Any?) {
+        AuthManager.shared.logout()
     }
 }
