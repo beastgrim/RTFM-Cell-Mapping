@@ -58,7 +58,11 @@ func getSignalFromStatusBar() -> Int? {
 }
 
 func getSignalFrom(networkInfo: CTTelephonyNetworkInfo) -> Int? {
-    let value = networkInfo.value(forKey: "signalStrength")
+    
+    let selector = Selector("signalStrength")
+    let value = networkInfo.perform(selector)?.takeRetainedValue()
+    
+//    let value = networkInfo.value(forKey: "signalStrength")
     print("Vla: \(String(describing: value))")
     return nil
 }

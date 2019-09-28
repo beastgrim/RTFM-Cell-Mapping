@@ -9,10 +9,24 @@
 import Foundation
 import CoreLocation
 
-enum ReportManagerError: Error {
+enum ReportManagerError: Error, CustomNSError {
     case locationNotAvailable
     case signalNotAvailable
     case networkError(ApiRequestError)
+    
+    var errorUserInfo: [String : Any] {
+        let desc: String
+        switch self {
+  
+        case .locationNotAvailable:
+            desc = "Location not available"
+        case .signalNotAvailable:
+            desc = "Signal not available"
+        case .networkError(let err):
+            desc = "Network error: \(err.localizedDescription)"
+        }
+        return [NSLocalizedDescriptionKey: desc]
+    }
 }
 
 class ReportManager {
