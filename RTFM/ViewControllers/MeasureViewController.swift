@@ -117,7 +117,7 @@ class MeasureViewController: UIViewController {
         self.powerLabel.textColor = .white
         self.signalImageView.addSubview(self.powerLabel)
         self.powerLabel.snp.makeConstraints { (make) in
-            make.bottom.equalToSuperview().offset(-16)
+            make.bottom.equalToSuperview().offset(-20)
             make.centerX.equalToSuperview()
         }
         

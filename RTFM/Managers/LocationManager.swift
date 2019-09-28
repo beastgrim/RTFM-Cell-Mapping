@@ -89,7 +89,7 @@ class LocationManager: NSObject, CLLocationManagerDelegate, ObjectObserversProto
     // MARK: - Public
     
     func startUpdatingLocation() {
-        self.manager.desiredAccuracy = 10
+        self.manager.desiredAccuracy = kCLLocationAccuracyKilometer
         self.manager.startUpdatingLocation()
     }
     
