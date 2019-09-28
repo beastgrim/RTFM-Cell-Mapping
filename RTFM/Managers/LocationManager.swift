@@ -9,11 +9,26 @@
 import CoreLocation
 import UIKit
 
-enum LocationManagerError: Error {
+enum LocationManagerError: Error, CustomNSError {
     case needAuthorizarion
     case denied
     case error(_: Error)
     case unknown(_: String)
+    
+    var errorUserInfo: [String : Any] {
+        let desc: String
+        switch self {
+        case .needAuthorizarion:
+            desc = "Autorization required"
+        case .denied:
+            desc = "Access denied"
+        case .error(let err):
+            desc = "Location error: \(err.localizedDescription)"
+        case .unknown(let str):
+            desc = str
+        }
+        return [NSLocalizedDescriptionKey: desc]
+    }
 }
 
 

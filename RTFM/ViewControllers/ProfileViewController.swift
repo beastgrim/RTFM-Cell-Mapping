@@ -53,7 +53,7 @@ class ProfileViewController: UIViewController {
             make.width.equalTo(120)
             make.height.equalTo(120)
             make.centerX.equalToSuperview()
-            make.top.equalToSuperview().offset(150)
+            make.top.equalToSuperview().offset(150).priority(.low)
         }
         
         self.nameLabel = UILabel()
@@ -97,6 +97,7 @@ class ProfileViewController: UIViewController {
         self.bonusLabel.snp.makeConstraints { (make) in
             make.bottom.equalTo(self.useButton.snp.top).offset(-24)
             make.centerX.equalToSuperview()
+            make.top.greaterThanOrEqualTo(self.phoneLabel.snp.bottom).offset(20)
         }
     }
     

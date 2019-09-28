@@ -239,7 +239,7 @@ class MeasureViewController: UIViewController {
         if let radioType = manager.radioType {
             typeText = radioType.name
         } else {
-            typeText = "unsupported"
+            typeText = ""
         }
         self.providerLabel?.text = nameText
         self.radioTypeLabel?.text = typeText
