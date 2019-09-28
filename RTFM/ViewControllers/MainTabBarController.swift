@@ -8,7 +8,7 @@
 
 import UIKit
 
-class MainTabBarController: UITabBarController {
+class MainTabBarController: UITabBarController, UITabBarControllerDelegate {
     
     private(set) var centerLogoImageView: UIImageView!
     
@@ -26,13 +26,34 @@ class MainTabBarController: UITabBarController {
         return controller
     }()
     
+    var mapViewController: MapViewController = {
+        let controller = MapViewController()
+        let icon = UIImage(named: "map")
+        controller.tabBarItem = UITabBarItem(title: nil, image: icon, tag: 0)
+        return controller
+    }()
+    
+    var settingsViewController: SettingsViewController = {
+        let controller = SettingsViewController()
+        let icon = UIImage(named: "settings")
+        controller.tabBarItem = UITabBarItem(title: nil, image: icon, tag: 0)
+        return controller
+    }()
+    
     init() {
         super.init(nibName: nil, bundle: nil)
 
+        self.delegate = self
+        
         let measureTab = UINavigationController(rootViewController: measureViewController)
         measureTab.setNavigationBarHidden(true, animated: false)
         let profileTab = UINavigationController(rootViewController: profileViewController)
-        self.viewControllers = [measureTab, profileTab]
+        let mapTab = UINavigationController(rootViewController: mapViewController)
+        mapTab.setNavigationBarHidden(true, animated: false)
+        let settingsTab = UINavigationController(rootViewController: settingsViewController)
+        let emptyTab = UIViewController()
+        emptyTab.tabBarItem = UITabBarItem(title: nil, image: nil, tag: -1)
+        self.viewControllers = [measureTab, mapTab, emptyTab, settingsTab, profileTab]
     }
     
     required init?(coder: NSCoder) {
@@ -45,6 +66,7 @@ class MainTabBarController: UITabBarController {
         self.tabBar.tintColor = rgba(44, 83, 176, 0.7)
         
         let logoContentView = UIView()
+        logoContentView.isUserInteractionEnabled = true
         logoContentView.backgroundColor = UIColorFromHex(rgbValue: 0x2C53B0)
         logoContentView.layer.cornerRadius = 32
         self.tabBar.addSubview(logoContentView)
@@ -61,4 +83,7 @@ class MainTabBarController: UITabBarController {
         logoContentView.addSubview(logo)
     }
 
+    func tabBarController(_ tabBarController: UITabBarController, shouldSelect viewController: UIViewController) -> Bool {
+        return viewController.tabBarItem.tag != -1
+    }
 }

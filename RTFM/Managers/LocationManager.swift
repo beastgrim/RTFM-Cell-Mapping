@@ -57,7 +57,7 @@ class LocationManager: NSObject, CLLocationManagerDelegate, ObjectObserversProto
     }()
     private var callbacks = [CompletionBlock]()
     private var appActiveObserver: NSObjectProtocol!
-    private var recentLocation: CLLocation? {
+    private(set) var recentLocation: CLLocation? {
         didSet {
             if let location = self.recentLocation {
                 self.callObservers { (manager, observer) in

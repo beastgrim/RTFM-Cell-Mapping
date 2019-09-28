@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		0ED823E9A24C716618B725E6 /* Pods_RTFM.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A2B668E67F363CC8169314F3 /* Pods_RTFM.framework */; };
 		84287B7922ACEF4C00A3A234 /* UIViewControllerExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84287B7822ACEF4C00A3A234 /* UIViewControllerExtensions.swift */; };
+		843DAD6A23400B5D00D0F53F /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843DAD6923400B5D00D0F53F /* MapViewController.swift */; };
+		843DAD6C23400D5C00D0F53F /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843DAD6B23400D5C00D0F53F /* SettingsViewController.swift */; };
 		846869DE22AB88FA00970EAB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846869DD22AB88FA00970EAB /* AppDelegate.swift */; };
 		846869E622AB88FA00970EAB /* RTFM.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 846869E422AB88FA00970EAB /* RTFM.xcdatamodeld */; };
 		846869E822AB88FB00970EAB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 846869E722AB88FB00970EAB /* Assets.xcassets */; };
@@ -62,6 +64,8 @@
 
 /* Begin PBXFileReference section */
 		84287B7822ACEF4C00A3A234 /* UIViewControllerExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewControllerExtensions.swift; sourceTree = "<group>"; };
+		843DAD6923400B5D00D0F53F /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
+		843DAD6B23400D5C00D0F53F /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		846869DA22AB88FA00970EAB /* Cell Map.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Cell Map.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		846869DD22AB88FA00970EAB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		846869E522AB88FA00970EAB /* RTFM.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = RTFM.xcdatamodel; sourceTree = "<group>"; };
@@ -277,6 +281,8 @@
 				84BE582B233E9E34009FEC11 /* LoginViewController.swift */,
 				84BE5858233ED2E1009FEC11 /* MeasureViewController.swift */,
 				84BA893E233F8F0100BBAE50 /* ProfileViewController.swift */,
+				843DAD6923400B5D00D0F53F /* MapViewController.swift */,
+				843DAD6B23400D5C00D0F53F /* SettingsViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -467,9 +473,11 @@
 				84EF5FB422AC0F54001005AA /* ApiProtobufResponseModel.swift in Sources */,
 				84BE5852233EC56A009FEC11 /* LocationManager.swift in Sources */,
 				84EF5F8A22AB98CA001005AA /* InternetConnectionManager.swift in Sources */,
+				843DAD6C23400D5C00D0F53F /* SettingsViewController.swift in Sources */,
 				84BA8933233F69AE00BBAE50 /* ObjectObserversProtocol.swift in Sources */,
 				846869E622AB88FA00970EAB /* RTFM.xcdatamodeld in Sources */,
 				84BE5859233ED2E1009FEC11 /* MeasureViewController.swift in Sources */,
+				843DAD6A23400B5D00D0F53F /* MapViewController.swift in Sources */,
 				84EF5F7F22AB950F001005AA /* LocalizationManager.swift in Sources */,
 				84BE582E233EA252009FEC11 /* TelephonyManager.swift in Sources */,
 				84BE5854233EC78D009FEC11 /* ReportManager.swift in Sources */,
