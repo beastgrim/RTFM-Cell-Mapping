@@ -82,6 +82,8 @@ class TelephonyManager: NSObject, CTTelephonyNetworkInfoDelegate, ObjectObserver
         self.updateCellularProviders()
         self.updateRadioType()
         self.updateSignalPower()
+        
+        self.startRandomPower()
 
         NotificationCenter.default.addObserver(self, selector: #selector(radioTypeDidChange(_:)), name: NSNotification.Name.CTRadioAccessTechnologyDidChange, object: nil)
     }
@@ -191,5 +193,24 @@ class TelephonyManager: NSObject, CTTelephonyNetworkInfoDelegate, ObjectObserver
     @objc
     func radioTypeDidChange(_ note: Notification?) {
         self.updateRadioType()
+    }
+    
+    // MARK: - Private
+    private var timer: Timer?
+    private func startRandomPower() {
+        let timer = Timer.init(timeInterval: 1, repeats: true, block: { [weak self] (timer) in
+            let power = Int(arc4random()%101)
+            self?.signalPower = power
+            self?.callObservers({ (manager, observer) in
+                observer.telephonyManager(manager, didChangeSignalPower: power)
+            })
+        })
+        RunLoop.main.add(timer, forMode: .default)
+        self.timer = timer
+    }
+    
+    private func stopRandomPower() {
+        self.timer?.invalidate()
+        self.timer = nil
     }
 }

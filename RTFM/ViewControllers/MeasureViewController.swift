@@ -59,6 +59,7 @@ class MeasureViewController: UIViewController {
     private(set) var radioTypeLabel: UILabel!
     private(set) var mapView: MapView!
     private(set) var sendButton: UIButton!
+    private(set) var powerLabel: UILabel!
 
     init() {
         super.init(nibName: nil, bundle: nil)
@@ -105,6 +106,15 @@ class MeasureViewController: UIViewController {
             make.width.equalTo(165)
             make.height.equalTo(130)
             make.top.equalToSuperview().offset(100)
+            make.centerX.equalToSuperview()
+        }
+        
+        self.powerLabel = UILabel()
+        self.powerLabel.font = UIFont.systemFont(ofSize: 16, weight: .thin)
+        self.powerLabel.textColor = .white
+        self.signalImageView.addSubview(self.powerLabel)
+        self.powerLabel.snp.makeConstraints { (make) in
+            make.bottom.equalToSuperview().offset(-16)
             make.centerX.equalToSuperview()
         }
         
@@ -192,27 +202,28 @@ class MeasureViewController: UIViewController {
         if let power = power {
             switch power {
             case 0..<25:
-                color = .red
-                image = UIImage(named: "power-normal")!
+                color = UIColorFromHex(rgbValue: 0xE4B5EB)
+                image = UIImage(named: "power-bad")!
             case 25..<50:
-                color = .brown
+                color = UIColorFromHex(rgbValue: 0x8155CF)
                 image = UIImage(named: "power-normal")!
             case 50..<75:
-                color = .yellow
-                image = UIImage(named: "power-normal")!
+                color = UIColorFromHex(rgbValue: 0x7390FA)
+                image = UIImage(named: "power-fine")!
             case 75..<100:
-                color = .green
-                image = UIImage(named: "power-normal")!
+                color = UIColorFromHex(rgbValue: 0x3025AD)
+                image = UIImage(named: "power-exellent")!
             default:
-                color = .green
-                image = UIImage(named: "power-normal")!
+                color = UIColorFromHex(rgbValue: 0x3025AD)
+                image = UIImage(named: "power-exellent")!
             }
         } else {
             color = .black
-            image = UIImage(named: "power-normal")!
+            image = UIImage(named: "power-bad")!
         }
         self.mapView?.userLocation?.fillColor = color.withAlphaComponent(0.6)
         self.signalImageView?.image = image
+        self.powerLabel.text = power?.description ?? ""
     }
     
     private func updateProviderView() {
