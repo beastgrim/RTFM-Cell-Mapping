@@ -55,7 +55,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func applicationDidEnterBackground(_ application: UIApplication) {
-        UNNotification.send(title: "Test in bg", body: "Example")
+        LocationManager.shared.stopUpdatingLocation()
 
         self.bgTask = application.beginBackgroundTask(expirationHandler: { [weak self] in
             if let self = self, let task = self.bgTask {
@@ -77,6 +77,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func applicationDidBecomeActive(_ application: UIApplication) {
+        LocationManager.shared.startUpdatingLocation()
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
     }
 

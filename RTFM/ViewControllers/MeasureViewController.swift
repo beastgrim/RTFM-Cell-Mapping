@@ -64,6 +64,8 @@ class MeasureViewController: UIViewController {
     init() {
         super.init(nibName: nil, bundle: nil)
         self.title = "Measure"
+        
+        LocationManager.shared.register(observer: self)
         TelephonyManager.shared.register(observer: self)
     }
     
@@ -72,6 +74,7 @@ class MeasureViewController: UIViewController {
     }
     
     deinit {
+        LocationManager.shared.unregister(observer: self)
         TelephonyManager.shared.unregister(observer: self)
     }
     
@@ -154,8 +157,6 @@ class MeasureViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        
-        
     }
     
     @objc
@@ -262,6 +263,14 @@ extension MeasureViewController: TelephonyManagerObserverProtocol {
         if self.isViewLoaded {
             self.updateSignalView()
             self.updateProviderView()
+        }
+    }
+}
+
+extension MeasureViewController: LocationManagerObserverProtocol {
+    func locationManager(_ manager: LocationManager, didUpdate location: CLLocation) {
+        if self.isViewLoaded {
+            self.updateMapView()
         }
     }
 }

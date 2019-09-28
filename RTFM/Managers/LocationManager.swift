@@ -31,8 +31,13 @@ enum LocationManagerError: Error, CustomNSError {
     }
 }
 
+protocol LocationManagerObserverProtocol {
+    func locationManager(_ manager: LocationManager, didUpdate location: CLLocation)
+}
 
-class LocationManager: NSObject, CLLocationManagerDelegate {
+class LocationManager: NSObject, CLLocationManagerDelegate, ObjectObserversProtocol {
+    typealias SelfClass = LocationManager
+    typealias ProtocolClass = LocationManagerObserverProtocol
 
     static let shared: LocationManager = .init()
     typealias CompletionBlock = (_: CLLocation?, _: LocationManagerError?)->Void
@@ -50,9 +55,17 @@ class LocationManager: NSObject, CLLocationManagerDelegate {
         manager.delegate = self
         return manager
     }()
-    private var recentLocation: CLLocation?
     private var callbacks = [CompletionBlock]()
     private var appActiveObserver: NSObjectProtocol!
+    private var recentLocation: CLLocation? {
+        didSet {
+            if let location = self.recentLocation {
+                self.callObservers { (manager, observer) in
+                    observer.locationManager(manager, didUpdate: location)
+                }
+            }
+        }
+    }
     
     // MARK: - Life
     
@@ -74,6 +87,15 @@ class LocationManager: NSObject, CLLocationManagerDelegate {
     
 
     // MARK: - Public
+    
+    func startUpdatingLocation() {
+        self.manager.desiredAccuracy = 10
+        self.manager.startUpdatingLocation()
+    }
+    
+    func stopUpdatingLocation() {
+        self.manager.stopUpdatingLocation()
+    }
     
     func requestLocation(completion: @escaping CompletionBlock) {
         
