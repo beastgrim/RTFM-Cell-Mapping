@@ -42,7 +42,7 @@ struct SignalPoint {
 
   var longitude: Double = 0
 
-  var realiability: Double = 0
+  var reliability: Double = 0
 
   var signal: Double = 0
 
@@ -169,7 +169,7 @@ extension SignalPoint: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementati
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "Latitude"),
     2: .same(proto: "Longitude"),
-    3: .same(proto: "Realiability"),
+    3: .same(proto: "Reliability"),
     4: .same(proto: "Signal"),
   ]
 
@@ -178,7 +178,7 @@ extension SignalPoint: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementati
       switch fieldNumber {
       case 1: try decoder.decodeSingularDoubleField(value: &self.latitude)
       case 2: try decoder.decodeSingularDoubleField(value: &self.longitude)
-      case 3: try decoder.decodeSingularDoubleField(value: &self.realiability)
+      case 3: try decoder.decodeSingularDoubleField(value: &self.reliability)
       case 4: try decoder.decodeSingularDoubleField(value: &self.signal)
       default: break
       }
@@ -192,8 +192,8 @@ extension SignalPoint: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementati
     if self.longitude != 0 {
       try visitor.visitSingularDoubleField(value: self.longitude, fieldNumber: 2)
     }
-    if self.realiability != 0 {
-      try visitor.visitSingularDoubleField(value: self.realiability, fieldNumber: 3)
+    if self.reliability != 0 {
+      try visitor.visitSingularDoubleField(value: self.reliability, fieldNumber: 3)
     }
     if self.signal != 0 {
       try visitor.visitSingularDoubleField(value: self.signal, fieldNumber: 4)
@@ -204,7 +204,7 @@ extension SignalPoint: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementati
   static func ==(lhs: SignalPoint, rhs: SignalPoint) -> Bool {
     if lhs.latitude != rhs.latitude {return false}
     if lhs.longitude != rhs.longitude {return false}
-    if lhs.realiability != rhs.realiability {return false}
+    if lhs.reliability != rhs.reliability {return false}
     if lhs.signal != rhs.signal {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true

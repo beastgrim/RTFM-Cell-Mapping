@@ -43,6 +43,22 @@ class MainTabBarController: UITabBarController {
         super.viewDidLoad()
 
         self.tabBar.tintColor = rgba(44, 83, 176, 0.7)
+        
+        let logoContentView = UIView()
+        logoContentView.backgroundColor = UIColorFromHex(rgbValue: 0x2C53B0)
+        logoContentView.layer.cornerRadius = 32
+        self.tabBar.addSubview(logoContentView)
+        logoContentView.snp.makeConstraints { (make) in
+            make.width.equalTo(64)
+            make.height.equalTo(64)
+            make.centerX.equalToSuperview()
+            make.top.equalTo(self.tabBar.snp.top).offset(-14)
+        }
+        
+        let logo = UIImageView(image: UIImage(named: "tabbar-logo"))
+        logo.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        logo.frame = logoContentView.bounds
+        logoContentView.addSubview(logo)
     }
 
 }
