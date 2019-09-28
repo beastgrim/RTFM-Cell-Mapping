@@ -52,7 +52,7 @@ class MainTabBarController: UITabBarController {
             make.width.equalTo(64)
             make.height.equalTo(64)
             make.centerX.equalToSuperview()
-            make.top.equalTo(self.tabBar.snp.top).offset(-14)
+            make.top.equalTo(self.tabBar.snp.top).offset(-22)
         }
         
         let logo = UIImageView(image: UIImage(named: "tabbar-logo"))

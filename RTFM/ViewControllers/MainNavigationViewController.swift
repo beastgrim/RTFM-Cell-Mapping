@@ -20,7 +20,11 @@ class MainNavigationViewController: UINavigationController {
         } else {
             let controller = LoginViewController()
             controller.completion = { [weak self] vc in
-                self?.actionDidLogin()
+                AuthManager.shared.login(phone: "", code: "1") { [weak self] error in
+                    if let err = error {
+                        self?.showError(err)
+                    }
+                }
             }
             viewControllers = [controller]
         }
@@ -45,7 +49,12 @@ class MainNavigationViewController: UINavigationController {
     func actionDidLogout() {
         let controller = LoginViewController()
         controller.completion = { [weak self] vc in
-            self?.actionDidLogin()
+            
+            AuthManager.shared.login(phone: "", code: "1") { [weak self] error in
+                if let err = error {
+                    self?.showError(err)
+                }
+            }
         }
         self.setViewControllers([controller], animated: true)
     }
@@ -54,5 +63,9 @@ class MainNavigationViewController: UINavigationController {
 extension MainNavigationViewController: AuthManagerObserverProtocol {
     func authManagerDidLogout(_ manager: AuthManager) {
         self.actionDidLogout()
+    }
+    
+    func authManagerDidLogin(_ manager: AuthManager) {
+        self.actionDidLogin()
     }
 }

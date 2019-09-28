@@ -159,20 +159,32 @@ class TelephonyManager: NSObject, CTTelephonyNetworkInfoDelegate, ObjectObserver
     }
     
     private func updateSignalPower() {
-        let libHandle = dlopen("/System/Library/Frameworks/CoreTelephony.framework/CoreTelephony", RTLD_NOW)
-        let CTGetSignalStrength2 = dlsym(libHandle, "CTGetSignalStrength")
-        
-        typealias CFunction = @convention(c) () -> Int
-        
+//        let libHandle = dlopen("/System/Library/Frameworks/CoreTelephony.framework/CoreTelephony", RTLD_NOW)
+//        let CTGetSignalStrength = dlsym(libHandle, "CTGetSignalStrength")
+//
+//        typealias CFunction = @convention(c) () -> Int
+//
+//        let power: Int?
+//        if (CTGetSignalStrength != nil) {
+//            let fun = unsafeBitCast(CTGetSignalStrength!, to: CFunction.self)
+//            let result = fun()
+//
+//            power = result
+//        } else {
+//            power = nil
+//        }
+//        dlclose(libHandle)
         let power: Int?
-        if (CTGetSignalStrength2 != nil) {
-            let fun = unsafeBitCast(CTGetSignalStrength2!, to: CFunction.self)
-            let result = fun()
-
-            power = result
+        if #available(iOS 13.0, *) {
+            power = getSignalStrength()
         } else {
-            power = nil
+            if let value = getSignalFromStatusBar() {
+                power = value
+            } else {
+                power = getSignalFrom(networkInfo: self.networkInfo)
+            }
         }
+        
         if self.signalPower != power {
             self.signalPower = power
             
@@ -199,11 +211,12 @@ class TelephonyManager: NSObject, CTTelephonyNetworkInfoDelegate, ObjectObserver
     private var timer: Timer?
     private func startRandomPower() {
         let timer = Timer.init(timeInterval: 1, repeats: true, block: { [weak self] (timer) in
-            let power = Int(arc4random()%101)
-            self?.signalPower = power
-            self?.callObservers({ (manager, observer) in
-                observer.telephonyManager(manager, didChangeSignalPower: power)
-            })
+            self?.updateSignalPower()
+//            let power = Int(arc4random()%101)
+//            self?.signalPower = power
+//            self?.callObservers({ (manager, observer) in
+//                observer.telephonyManager(manager, didChangeSignalPower: power)
+//            })
         })
         RunLoop.main.add(timer, forMode: .default)
         self.timer = timer

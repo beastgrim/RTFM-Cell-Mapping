@@ -10,6 +10,11 @@ import Foundation
 
 protocol AuthManagerObserverProtocol {
     func authManagerDidLogout(_ manager: AuthManager)
+    func authManagerDidLogin(_ manager: AuthManager)
+}
+
+enum AuthManagerError: Error {
+    case invalidCode
 }
 
 class AuthManager: ObjectObserversProtocol {
@@ -28,5 +33,19 @@ class AuthManager: ObjectObserversProtocol {
         self.callObservers { (manager, observer) in
             observer.authManagerDidLogout(manager)
         }
+    }
+    
+    func login(phone: String, code: String,
+               completion: @escaping (Error?) -> Void) {
+        
+        guard let userId = Int64(code) else {
+            completion(AuthManagerError.invalidCode)
+            return
+        }
+        self.userId = userId
+        self.callObservers { (manager, observer) in
+            observer.authManagerDidLogin(manager)
+        }
+        completion(nil)
     }
 }
