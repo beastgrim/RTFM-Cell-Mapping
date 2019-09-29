@@ -60,6 +60,16 @@ class MapView: UIView {
                  animationType: animation,
                  cameraCallback: nil)
     }
+    
+    func zoomTo(letfTop: CLLocationCoordinate2D, rightBottom: CLLocationCoordinate2D) {
+        let map: YMKMap = self.mapView.mapWindow.map
+        let point = YMKPoint(latitude: rightBottom.latitude - letfTop.latitude,
+                             longitude: rightBottom.longitude - letfTop.longitude)
+        let camera = YMKCameraPosition(target: point, zoom: 10, azimuth: 0, tilt: 0)
+        let animation = YMKAnimation(type: YMKAnimationType.smooth, duration: 0.5)
+        
+        map.move(with: camera, animationType: animation, cameraCallback: nil)
+    }
 }
 
 class MeasureViewController: UIViewController {

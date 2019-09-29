@@ -50,21 +50,21 @@ class Api {
     
     class func cellHeatMap<T: ApiProtobufResponseModel<SignalMapResponse>>
         (host: String,
-         leftTop: CLLocationCoordinate2D,
-         rightBottom: CLLocationCoordinate2D,
+         leftBottom: CLLocationCoordinate2D,
+         rightTop: CLLocationCoordinate2D,
          operatorName: String,
          radioType: String,
          successHandler: @escaping ((T) -> Void),
          failureHandler: @escaping ((ApiRequestError) -> Void)) -> ApiRequest<T> {
         
         var payload = SignalMapRequest()
-        var lt = Point()
-        lt.longitude = leftTop.longitude
-        lt.latitude = leftTop.latitude
-        var rb = Point()
-        rb.longitude = rightBottom.longitude
-        rb.latitude = rightBottom.latitude
-        payload.borderPoints = [lt, rb]
+        var lb = Point()
+        lb.longitude = leftBottom.longitude
+        lb.latitude = leftBottom.latitude
+        var rt = Point()
+        rt.longitude = rightTop.longitude
+        rt.latitude = rightTop.latitude
+        payload.borderPoints = [lb, rt]
         payload.operatorName = operatorName
         payload.networkName = radioType
         
