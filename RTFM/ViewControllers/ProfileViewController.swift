@@ -35,7 +35,7 @@ class ProfileViewController: UIViewController {
         super.viewDidLoad()
         self.view.backgroundColor = .white
         
-        self.bgImageView = UIImageView(image: UIImage(named: "profile-back"))
+        self.bgImageView = UIImageView(image: UIImage(named: "settings_back"))
         self.bgImageView.contentMode = .scaleAspectFill
         self.view.addSubview(self.bgImageView)
         self.bgImageView.snp.makeConstraints { (make) in
@@ -91,7 +91,7 @@ class ProfileViewController: UIViewController {
         
         self.bonusLabel = UILabel()
         self.bonusLabel.font = UIFont.systemFont(ofSize: 30, weight: .medium)
-        self.bonusLabel.textColor = rgba(43, 34, 118, 0.9)
+        self.bonusLabel.textColor = UIColorFromHex(rgbValue: 0xFFB181)
         self.bonusLabel.text = "530 Б"
         self.view.addSubview(self.bonusLabel)
         self.bonusLabel.snp.makeConstraints { (make) in

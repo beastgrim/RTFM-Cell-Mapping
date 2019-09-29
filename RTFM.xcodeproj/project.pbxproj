@@ -12,6 +12,8 @@
 		843DAD6A23400B5D00D0F53F /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843DAD6923400B5D00D0F53F /* MapViewController.swift */; };
 		843DAD6C23400D5C00D0F53F /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843DAD6B23400D5C00D0F53F /* SettingsViewController.swift */; };
 		843DAD6E234015D000D0F53F /* SettingsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843DAD6D234015D000D0F53F /* SettingsManager.swift */; };
+		8456CE60234087ED00204AD6 /* quake.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8456CE5F234087EC00204AD6 /* quake.plist */; };
+		8456CE632340931600204AD6 /* LFHeatMap.m in Sources */ = {isa = PBXBuildFile; fileRef = 8456CE622340931600204AD6 /* LFHeatMap.m */; };
 		846869DE22AB88FA00970EAB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846869DD22AB88FA00970EAB /* AppDelegate.swift */; };
 		846869E622AB88FA00970EAB /* RTFM.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 846869E422AB88FA00970EAB /* RTFM.xcdatamodeld */; };
 		846869E822AB88FB00970EAB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 846869E722AB88FB00970EAB /* Assets.xcassets */; };
@@ -68,6 +70,9 @@
 		843DAD6923400B5D00D0F53F /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		843DAD6B23400D5C00D0F53F /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		843DAD6D234015D000D0F53F /* SettingsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsManager.swift; sourceTree = "<group>"; };
+		8456CE5F234087EC00204AD6 /* quake.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = quake.plist; sourceTree = "<group>"; };
+		8456CE612340931600204AD6 /* LFHeatMap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LFHeatMap.h; sourceTree = "<group>"; };
+		8456CE622340931600204AD6 /* LFHeatMap.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LFHeatMap.m; sourceTree = "<group>"; };
 		846869DA22AB88FA00970EAB /* Cell Map.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Cell Map.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		846869DD22AB88FA00970EAB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		846869E522AB88FA00970EAB /* RTFM.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = RTFM.xcdatamodel; sourceTree = "<group>"; };
@@ -203,6 +208,7 @@
 				846869E722AB88FB00970EAB /* Assets.xcassets */,
 				846869E922AB88FB00970EAB /* LaunchScreen.storyboard */,
 				846869EC22AB88FB00970EAB /* Info.plist */,
+				8456CE5F234087EC00204AD6 /* quake.plist */,
 				846869E422AB88FA00970EAB /* RTFM.xcdatamodeld */,
 			);
 			name = SupportedFiles;
@@ -272,6 +278,8 @@
 				84BA8929233EEABB00BBAE50 /* KeyboardViewController.h */,
 				84BA8928233EEABB00BBAE50 /* KeyboardViewController.m */,
 				84BA8942233FF35900BBAE50 /* CoreTelephony.h */,
+				8456CE612340931600204AD6 /* LFHeatMap.h */,
+				8456CE622340931600204AD6 /* LFHeatMap.m */,
 			);
 			path = Vendors;
 			sourceTree = "<group>";
@@ -396,6 +404,7 @@
 				84EF5FA722ABF15D001005AA /* Sarabun-Regular.ttf in Resources */,
 				846869EB22AB88FB00970EAB /* LaunchScreen.storyboard in Resources */,
 				846869E822AB88FB00970EAB /* Assets.xcassets in Resources */,
+				8456CE60234087ED00204AD6 /* quake.plist in Resources */,
 				84EF5FA622ABF15D001005AA /* Sarabun-Italic.ttf in Resources */,
 				84EF5FA522ABF15D001005AA /* Sarabun-BoldItalic.ttf in Resources */,
 				84EF5FA922ABF1B4001005AA /* Sarabun-Bold.ttf in Resources */,
@@ -492,6 +501,7 @@
 				84BA893F233F8F0100BBAE50 /* ProfileViewController.swift in Sources */,
 				84EF5FB222AC0E47001005AA /* Api.swift in Sources */,
 				84EF5F9722ABC4B5001005AA /* UIStoryboardExtensions.swift in Sources */,
+				8456CE632340931600204AD6 /* LFHeatMap.m in Sources */,
 				84EF5FBA22AC16FF001005AA /* empty.pb.swift in Sources */,
 				84EF5F8F22AB992D001005AA /* Reachability.m in Sources */,
 				84EF5F7A22AB918F001005AA /* ApiHostManager.swift in Sources */,

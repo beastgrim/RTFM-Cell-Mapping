@@ -8,7 +8,7 @@ target 'RTFM' do
   pod 'SDWebImage', '~> 5.0'
   pod 'MBProgressHUD', '~> 1.1.0'
   pod 'SwiftProtobuf', '~> 1.0'
-  pod "LFHeatMap"
+#  pod "LFHeatMap"
 #  pod 'PromisesSwift', '~> 1.2.7'
   pod 'KeychainAccess'
   pod 'CocoaLumberjack/Swift'

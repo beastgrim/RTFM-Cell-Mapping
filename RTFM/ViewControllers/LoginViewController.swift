@@ -22,7 +22,7 @@ class LoginViewController: KeyboardViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.backgroundImageView = UIImageView(image: UIImage(named: "splash"))
+        self.backgroundImageView = UIImageView(image: UIImage(named: "login-back"))
         self.backgroundImageView.contentMode = .scaleAspectFill
         self.view.addSubview(self.backgroundImageView)
         self.backgroundImageView.snp.makeConstraints { (make) in
