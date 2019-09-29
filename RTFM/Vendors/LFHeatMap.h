@@ -19,7 +19,7 @@
  A nil weight parameter implies an even weight distribution.
  
  @params 
- mapView: Map view representing the heat map area.
+ mapView Map view representing the heat map area.
  boost: heat boost value
  locations: array of CLLocation objects representing the data points
  weights: array of NSNumber integer objects representing the weight of each point
