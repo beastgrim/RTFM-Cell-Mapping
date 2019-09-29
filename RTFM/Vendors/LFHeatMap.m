@@ -395,6 +395,7 @@ inline static int isqrt(int x)
     
     // Step 3
     // Render density info into raw RGBA pixels
+    int red_ch = 1; int green_ch = 0; int blue_ch = 2; int alpha_ch = 3;
     i = 0;
     float floatDensity;
     uint indexOrigin;
@@ -408,20 +409,20 @@ inline static int isqrt(int x)
                 // Normalize density to 0..1
                 floatDensity = (float)density[i] / (float)maxDensity;
                 
-                // Red and alpha component
-                rgba[indexOrigin+0] = floatDensity * 255;
-                rgba[indexOrigin+3] = rgba[indexOrigin];
+                // Green and alpha component
+                rgba[indexOrigin+red_ch] = floatDensity * 200;
+                rgba[indexOrigin+alpha_ch] = floatDensity * 256;
                 
-                 // Green component
-                if (floatDensity >= 0.75)
-                    rgba[indexOrigin+1] = rgba[indexOrigin];
-                else if (floatDensity >= 0.5)
-                    rgba[indexOrigin+1] = (floatDensity - 0.5) * 255 * 3;
-               
+                 // Red component
+                rgba[indexOrigin+green_ch] = (1.0 - floatDensity) * 255;
+//                if (floatDensity < 0.5)
+//                    rgba[indexOrigin+green_ch] = (floatDensity - 0.5) * 255;
+//                else if (floatDensity < 0.75)
+//                    rgba[indexOrigin+green_ch] = rgba[indexOrigin+alpha_ch];
                 
                 // Blue component
-                if (floatDensity >= 0.8)
-                    rgba[indexOrigin+2] = (floatDensity - 0.8) * 255 * 5;
+//                if (floatDensity >= 0.8)
+                    rgba[indexOrigin+blue_ch] = 0;
             }
         }
     }

@@ -96,7 +96,7 @@ class MapViewController: UIViewController {
         let boost: Float = 1.0
         let image = LFHeatMap.heatMap(for: self.mkMapView, boost: boost, locations: locations, weights: weights)
         self.heatMapImageView.image = image
-        self.heatMapImageView.isHidden = true
+//        self.heatMapImageView.isHidden = true
     }
 
 }
