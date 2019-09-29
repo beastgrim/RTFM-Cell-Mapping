@@ -49,7 +49,6 @@ class MainTabBarController: UITabBarController, UITabBarControllerDelegate {
         measureTab.setNavigationBarHidden(true, animated: false)
         let profileTab = UINavigationController(rootViewController: profileViewController)
         let mapTab = UINavigationController(rootViewController: mapViewController)
-        mapTab.setNavigationBarHidden(true, animated: false)
         let settingsTab = UINavigationController(rootViewController: settingsViewController)
         let emptyTab = UIViewController()
         emptyTab.tabBarItem = UITabBarItem(title: nil, image: nil, tag: -1)

@@ -10,14 +10,18 @@ import UIKit
 import SnapKit
 import CoreLocation
 import YandexMapKit
+import MBProgressHUD
 
 class MapViewController: UIViewController {
     
     private(set) var mapView: MapView!
     private(set) var heatMapImageView: UIImageView!
+    private(set) var radioTypeControl: UISegmentedControl!
 
     init() {
         super.init(nibName: nil, bundle: nil)
+        
+        self.title = "Карта покрытия"
     }
     
     required init?(coder: NSCoder) {
@@ -56,10 +60,35 @@ class MapViewController: UIViewController {
             make.right.equalToSuperview()
         }
         
+        self.radioTypeControl = UISegmentedControl(items: ["GPRS", "EDGE", "LTE"])
+        self.radioTypeControl.addTarget(self, action: #selector(actionRadioTypeDidChange(_:)), for: .valueChanged)
+        self.radioTypeControl.selectedSegmentIndex = 0
+        self.view.addSubview(self.radioTypeControl)
+        self.radioTypeControl.snp.makeConstraints { (make) in
+            make.top.equalTo(self.view.safeAreaLayoutGuide.snp.top).offset(24)
+            make.centerX.equalToSuperview()
+        }
+        
         self.mkMapView = .init(frame: self.view.bounds)
         self.updateUserLocation()
         
         self.loadFakeData()
+    }
+    
+    @objc
+    func actionRadioTypeDidChange(_ sender: Any?) {
+        // TODO: connect to server
+        let hud = self.showLoadingHUD()
+        UIView.animate(withDuration: 0.24, animations: {
+            self.heatMapImageView?.alpha = 0.0
+        }) { (_) in
+            delay(1, closure: {
+                hud.hide(animated: true)
+                UIView.animate(withDuration: 0.24, animations: {
+                    self.heatMapImageView?.alpha = 1.0
+                }, completion: nil)
+            })
+        }
     }
 
     private func updateUserLocation() {
@@ -137,12 +166,11 @@ extension MapViewController: YMKMapCameraListener {
         let point = self.heatMapCenter
         let zoom = CGFloat(cameraPosition.zoom)
         
-        print("Offset: x \(point.latitude - center.latitude) y \(point.longitude - center.longitude) zoom \(zoom)")
+//        print("Offset: x \(point.latitude - center.latitude) y \(point.longitude - center.longitude) zoom \(zoom)")
 
         let offsetX = -CGFloat(center.longitude - point.longitude) * 100 * zoom
         let offsetY = CGFloat(center.latitude - point.latitude) * 100 * zoom
         let offsetTransform = CGAffineTransform(translationX: offsetX, y: offsetY)
         view.layer.transform = CATransform3DMakeAffineTransform(offsetTransform)
-//        print("\(#function) \(cameraPosition) \(finished)")
     }
 }
