@@ -77,6 +77,22 @@ class MapViewController: UIViewController {
     
     @objc
     func actionRadioTypeDidChange(_ sender: Any?) {
+        
+        let host = ApiHostManager.baseUrl.absoluteString
+        let leftTop = CLLocationCoordinate2D(latitude: -5, longitude: -5)
+        let rightBottom = CLLocationCoordinate2D(latitude: 5, longitude: 5)
+        let request = Api.cellHeatMap(host: host,
+                                      leftTop: leftTop,
+                                      rightBottom: rightBottom,
+                                      operatorName: "BEELINE",
+                                      radioType: "LTE", successHandler: { (response) in
+                                        
+                                        print("Responnnse: \(response)")
+        }) { (error) in
+            print("Error request: \(error)")
+        }
+        request.start()
+        
         // TODO: connect to server
         let hud = self.showLoadingHUD()
         UIView.animate(withDuration: 0.24, animations: {

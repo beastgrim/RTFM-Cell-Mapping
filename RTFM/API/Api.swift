@@ -47,4 +47,40 @@ class Api {
         request.maxAttempts = 1
         return request
     }
+    
+    class func cellHeatMap<T: ApiProtobufResponseModel<SignalMapResponse>>
+        (host: String,
+         leftTop: CLLocationCoordinate2D,
+         rightBottom: CLLocationCoordinate2D,
+         operatorName: String,
+         radioType: String,
+         successHandler: @escaping ((T) -> Void),
+         failureHandler: @escaping ((ApiRequestError) -> Void)) -> ApiRequest<T> {
+        
+        var payload = SignalMapRequest()
+        var lt = Point()
+        lt.longitude = leftTop.longitude
+        lt.latitude = leftTop.latitude
+        var rb = Point()
+        rb.longitude = rightBottom.longitude
+        rb.latitude = rightBottom.latitude
+        payload.borderPoints = [lt, rb]
+        payload.operatorName = operatorName
+        payload.networkName = radioType
+        
+        print("Get cell map: \(payload)")
+        
+        let request = ApiRequest(protobufToHost: host, path: "api/signal_map_proto",
+                                 uniqueType: "api/signal_map_proto",
+                                 protobufRequest: payload,
+                                 successHandler: successHandler,
+                                 failureHandler: { (error) in
+                                    
+                                    Api.record(error: error)
+                                    failureHandler(error)
+        })
+        request.attemptWaitSeconds = 0
+        request.maxAttempts = 1
+        return request
+    }
 }

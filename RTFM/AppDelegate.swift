@@ -31,7 +31,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         DDLog.add(DDOSLogger.sharedInstance)
         
-        application.setMinimumBackgroundFetchInterval(60 * 15)
+        let updateInterval = SettingsManager.shared.measuringTimeInterval
+        application.setMinimumBackgroundFetchInterval(updateInterval)
         
         UNUserNotificationCenter.current().requestAuthorization(options: [.alert]) {
             (granted, error) in

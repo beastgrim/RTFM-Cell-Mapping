@@ -58,46 +58,6 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
     init() {
         super.init(nibName: nil, bundle: nil)
         self.title = "Настройки"
-        
-        let manager = SettingsManager.shared
-        
-        let backgroundMeasure = SettingViewModel(title: "Измерение в фоне",
-                                                 type: .onOff,
-                                                 callback: { (model, _) in
-            let value = model.boolValue
-            manager.isMeasuringInBackgroundOn = value
-        })
-        backgroundMeasure.boolValue = true
-        
-        let timeInterval = SettingViewModel(title: "Интервал измерения",
-                                            type: .picker) { (model, sender) in
-                                                let index = sender as! Int
-                                                switch index {
-                                                case 1:
-                                                    manager.measuringTimeInterval = 1800
-                                                case 2:
-                                                    manager.measuringTimeInterval = 2700
-                                                case 3:
-                                                    manager.measuringTimeInterval = 3600
-                                                default:
-                                                    manager.measuringTimeInterval = 900
-                                                }
-        }
-        let index: Int
-        switch SettingsManager.shared.measuringTimeInterval {
-        case 0...900:
-            index = 0
-        case 901...1800:
-            index = 1
-        case 1801...2700:
-            index = 2
-        case 2701...3600:
-            index = 3
-        default: index = 0
-        }
-        timeInterval.pickerValue = SettingViewModel.PickerValue(array: ["15 мин", "30 мин", "45 мин", " 1 час"], index: index)
-        
-        self.settings = [backgroundMeasure, timeInterval]
     }
     
     required init?(coder: NSCoder) {
@@ -106,6 +66,8 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.initializeViewModels()
 
         self.view.backgroundColor = .white
         
@@ -143,6 +105,47 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
         }
     }
 
+    private func initializeViewModels() {
+        let manager = SettingsManager.shared
+        
+        let backgroundMeasure = SettingViewModel(title: "Измерение в фоне",
+                                                 type: .onOff,
+                                                 callback: { (model, _) in
+                                                    let value = model.boolValue
+                                                    manager.isMeasuringInBackgroundOn = value
+        })
+        backgroundMeasure.boolValue = manager.isMeasuringInBackgroundOn
+        
+        let timeInterval = SettingViewModel(title: "Интервал измерения",
+                                            type: .picker) { (model, sender) in
+                                                let index = sender as! Int
+                                                switch index {
+                                                case 1:
+                                                    manager.measuringTimeInterval = 1800
+                                                case 2:
+                                                    manager.measuringTimeInterval = 2700
+                                                case 3:
+                                                    manager.measuringTimeInterval = 3600
+                                                default:
+                                                    manager.measuringTimeInterval = 900
+                                                }
+        }
+        let index: Int
+        switch SettingsManager.shared.measuringTimeInterval {
+        case 0...900:
+            index = 0
+        case 901...1800:
+            index = 1
+        case 1801...2700:
+            index = 2
+        case 2701...3600:
+            index = 3
+        default: index = 0
+        }
+        timeInterval.pickerValue = SettingViewModel.PickerValue(array: ["15 мин", "30 мин", "45 мин", " 1 час"], index: index)
+        
+        self.settings = [backgroundMeasure, timeInterval]
+    }
     
     // MARK: - UITableViewDataSource
     
