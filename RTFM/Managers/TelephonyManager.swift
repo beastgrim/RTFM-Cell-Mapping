@@ -187,12 +187,12 @@ class TelephonyManager: NSObject, ObjectObserversProtocol {
         
         if self.signalPower != power {
             self.signalPower = power
+            print("Signal power: \(power ?? -1)")
             
             self.callObservers { (manager, observer) in
                 observer.telephonyManager(manager, didChangeSignalPower: power)
             }
         }
-        print("Signal power: \(power ?? -1)")
     }
     
     

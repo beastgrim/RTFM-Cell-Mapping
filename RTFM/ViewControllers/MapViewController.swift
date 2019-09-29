@@ -9,6 +9,7 @@
 import UIKit
 import SnapKit
 import CoreLocation
+import YandexMapKit
 
 class MapViewController: UIViewController {
     
@@ -31,6 +32,12 @@ class MapViewController: UIViewController {
         super.viewDidLoad()
 
         self.mapView = MapView()
+        let mapWindow: YMKMapWindow = self.mapView.mapView.mapWindow
+        mapWindow.addSizeChangedListener(with: self)
+        let map: YMKMap = mapWindow.map
+        map.isZoomGesturesEnabled = false
+        map.isRotateGesturesEnabled = false
+        map.addCameraListener(with: self)
         self.view.addSubview(self.mapView)
         self.mapView.snp.makeConstraints { (make) in
             make.left.equalToSuperview()
@@ -56,16 +63,19 @@ class MapViewController: UIViewController {
     }
 
     private func updateUserLocation() {
-//        let location = CLLocation(latitude: 39.0, longitude: -77.0)
-        if let location = LocationManager.shared.manager.location {
-            self.mapView?.setLocation(location.coordinate)
-        }
+        let location = CLLocation(latitude: 39.0, longitude: -77.0)
+        self.mapView.scrollTo(location: location.coordinate, zoom: 10)
+
+//        if let location = LocationManager.shared.manager.location {
+//            self.mapView?.setLocation(location.coordinate)
+//        }
     }
     
     
     private var mkMapView: MKMapView!
     private var locations: [CLLocation] = []
     private var weights: [Double] = []
+    private var heatMapCenter: CLLocationCoordinate2D = .init()
     
     private func loadFakeData() {
         guard let path = Bundle.main.path(forResource: "quake", ofType: "plist") else {
@@ -91,6 +101,7 @@ class MapViewController: UIViewController {
         // set map region
         let span = MKCoordinateSpan(latitudeDelta: 10.0, longitudeDelta: 13.0)
         let center = CLLocationCoordinate2DMake(39.0, -77.0)
+        self.heatMapCenter = center
         self.mkMapView.region = MKCoordinateRegion(center: center, span: span)  
         
         let boost: Float = 1.0
@@ -106,5 +117,32 @@ extension MapViewController: LocationManagerObserverProtocol {
         if self.isViewLoaded {
             self.updateUserLocation()
         }
+    }
+}
+
+extension MapViewController: YMKMapSizeChangedListener {
+    func onMapWindowSizeChanged(with mapWindow: YMKMapWindow, newWidth: Int, newHeight: Int) {
+        print("\(#function) \(newWidth) \(newHeight)")
+    }
+}
+
+extension MapViewController: YMKMapCameraListener {
+    func onCameraPositionChanged(with map: YMKMap, cameraPosition: YMKCameraPosition, cameraUpdateSource: YMKCameraUpdateSource, finished: Bool) {
+        guard let view = self.heatMapImageView else {
+            return
+        }
+
+        let target = cameraPosition.target
+        let center = CLLocationCoordinate2D(latitude: target.latitude, longitude: target.longitude)
+        let point = self.heatMapCenter
+        let zoom = CGFloat(cameraPosition.zoom)
+        
+        print("Offset: x \(point.latitude - center.latitude) y \(point.longitude - center.longitude) zoom \(zoom)")
+
+        let offsetX = -CGFloat(center.longitude - point.longitude) * 100 * zoom
+        let offsetY = CGFloat(center.latitude - point.latitude) * 100 * zoom
+        let offsetTransform = CGAffineTransform(translationX: offsetX, y: offsetY)
+        view.layer.transform = CATransform3DMakeAffineTransform(offsetTransform)
+//        print("\(#function) \(cameraPosition) \(finished)")
     }
 }

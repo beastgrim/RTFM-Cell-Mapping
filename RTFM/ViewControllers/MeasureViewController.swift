@@ -49,6 +49,17 @@ class MapView: UIView {
                                               strokeWidth: 0,
                                               fill: UIColor.green.withAlphaComponent(0.7))
     }
+    
+    func scrollTo(location: CLLocationCoordinate2D, zoom: Float) {
+        let point = YMKPoint(latitude: location.latitude, longitude: location.longitude)
+        let camera = YMKCameraPosition(target: point, zoom: zoom, azimuth: 0, tilt: 0)
+        let animation = YMKAnimation(type: YMKAnimationType.smooth, duration: 0.5)
+        let map: YMKMap = self.mapView.mapWindow.map
+        
+        map.move(with: camera,
+                 animationType: animation,
+                 cameraCallback: nil)
+    }
 }
 
 class MeasureViewController: UIViewController {

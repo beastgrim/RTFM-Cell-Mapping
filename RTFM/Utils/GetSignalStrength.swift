@@ -21,7 +21,6 @@ func getSignalStrength() -> Int? {
     if CTGetSignalStrength != nil {
         let fun = unsafeBitCast(CTGetSignalStrength!, to: CFunction.self)
         result = fun()
-        print("!!!!result \(result!)")
     } else {
         result = nil
     }
@@ -59,10 +58,10 @@ func  getSignalFromStatusBar() -> Int? {
 
 func getSignalFrom(networkInfo: CTTelephonyNetworkInfo) -> Int? {
     
-    let selector = Selector("signalStrength")
-    let value = networkInfo.perform(selector)?.takeRetainedValue()
+//    let selector = Selector("signalStrength")
+//    let value = networkInfo.perform(selector)?.takeRetainedValue()
     
 //    let value = networkInfo.value(forKey: "signalStrength")
-    print("Vla: \(String(describing: value))")
+//    print("Vla: \(String(describing: value))")
     return nil
 }
