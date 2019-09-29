@@ -11,7 +11,7 @@ import Alamofire
 
 class ApiHostManager {
     
-    static let baseUrl: URL = URL(string: "http://213.226.112.150/")!
+    static let baseUrl: URL = URL(string: "https://scannet.ml/")!
 
     static let operationSession: SessionManager = {
         
