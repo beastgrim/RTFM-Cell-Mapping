@@ -133,6 +133,7 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
         self.tableView.delegate = self
         self.tableView.dataSource = self
         self.tableView.backgroundColor = .clear
+        self.tableView.tableFooterView = UIView()
         self.view.addSubview(self.tableView)
         self.tableView.snp.makeConstraints { (make) in
             make.top.equalTo(self.logoImageView.snp.bottom).offset(8)

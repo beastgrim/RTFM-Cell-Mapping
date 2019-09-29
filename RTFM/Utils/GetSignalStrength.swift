@@ -33,7 +33,7 @@ func getSignalStrength() -> Int? {
     return nil
  }
 
-func getSignalFromStatusBar() -> Int? {
+func  getSignalFromStatusBar() -> Int? {
     let application = UIApplication.shared
     guard let statusBarView = application.value(forKey: "statusBar") as? UIView,
         let foregroundView = statusBarView.value(forKey: "foregroundView") as? UIView else {

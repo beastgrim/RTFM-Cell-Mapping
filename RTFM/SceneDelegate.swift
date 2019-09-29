@@ -5,6 +5,7 @@
 //  Created by Евгений Богомолов on 28/09/2019.
 //  Copyright © 2019 be. All rights reserved.
 //
+/*
 
 import UIKit
 
@@ -65,3 +66,4 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
 }
 
+*/

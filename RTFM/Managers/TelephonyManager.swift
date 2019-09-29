@@ -62,7 +62,7 @@ protocol TelephonyManagerObserverProtocol {
     func telephonyManager(_ manager: TelephonyManager, didChangeSignalPower: Int?)
 }
 
-class TelephonyManager: NSObject, CTTelephonyNetworkInfoDelegate, ObjectObserversProtocol {
+class TelephonyManager: NSObject, ObjectObserversProtocol {
     typealias SelfClass = TelephonyManager
     typealias ProtocolClass = TelephonyManagerObserverProtocol
     
@@ -75,9 +75,9 @@ class TelephonyManager: NSObject, CTTelephonyNetworkInfoDelegate, ObjectObserver
         self.networkInfo = .init()
         super.init()
         
-        if #available(iOS 13.0, *) {
-            self.networkInfo.delegate = self
-        }
+//        if #available(iOS 13.0, *) {
+//            self.networkInfo.delegate = self
+//        }
         
         self.updateCellularProviders()
         self.updateRadioType()

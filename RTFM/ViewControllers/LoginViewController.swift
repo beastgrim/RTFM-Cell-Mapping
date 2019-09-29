@@ -37,7 +37,7 @@ class LoginViewController: KeyboardViewController {
         self.view.addSubview(self.logoImageView)
         self.logoImageView.snp.makeConstraints { (make) in
             make.centerX.equalToSuperview()
-            make.top.equalToSuperview().offset(100)
+            make.top.equalToSuperview().offset(100).priority(.low)
             make.height.equalToSuperview().dividedBy(3)
             make.width.equalToSuperview()
         }
@@ -71,8 +71,9 @@ class LoginViewController: KeyboardViewController {
         self.loginButton.addTarget(self, action: #selector(actionLogin(_:)), for: .touchUpInside)
         self.view.addSubview(self.loginButton)
         self.loginButton.snp.makeConstraints { (make) in
-            make.top.equalTo(self.textFieldContentView.snp.bottom).offset(100)
+            make.top.equalTo(self.textFieldContentView.snp.bottom).offset(100).priority(.low)
             make.centerX.equalToSuperview()
+            make.bottom.lessThanOrEqualTo(self.view.safeAreaLayoutGuide.snp.bottom).offset(-40)
         }
     }
     
